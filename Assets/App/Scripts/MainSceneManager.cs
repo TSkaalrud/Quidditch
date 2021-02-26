@@ -18,6 +18,8 @@ public class MainSceneManager : MonoBehaviour
     public Transform Spawn_G;
     public GameObject Slytherin;
     public Transform Spawn_S;
+    public GameObject Snitch;
+    public Transform Spawn_Snitch;
 
     private void Awake()
     {
@@ -49,6 +51,7 @@ public class MainSceneManager : MonoBehaviour
 
         // _ = Instantiate(Gryffindor) as GameObject;
         //Teams[0].instance = Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation) as GameObject;
+        Instantiate(Snitch, Spawn_Snitch.position, Spawn_Snitch.rotation);
         Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
         Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
     }
