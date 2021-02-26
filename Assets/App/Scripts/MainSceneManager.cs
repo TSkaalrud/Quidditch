@@ -24,6 +24,7 @@ public class MainSceneManager : MonoBehaviour
     public Flock Slith;
     public Snitch Snit;
     public Flock[] Flocks;
+    public GameObject[] Borders; //top, bottom, left, right, front, back
 
     private void Awake()
     {
@@ -63,7 +64,7 @@ public class MainSceneManager : MonoBehaviour
         Flocks = Object.FindObjectsOfType<Flock>();
         Gryf = Flocks[0];
         Slith = Flocks[1];
-        //Slith = (Flock)GameObject.Find("Slytherin");
+        
     }
 
     /// <summary>

@@ -20956,6 +20956,13 @@ MonoBehaviour:
   Slith: {fileID: 0}
   Snit: {fileID: 0}
   Flocks: []
+  Borders:
+  - {fileID: 1774473799}
+  - {fileID: 786901402}
+  - {fileID: 1705146452}
+  - {fileID: 1868907633}
+  - {fileID: 844797763}
+  - {fileID: 529765928}
   Version: {fileID: 383066249}
   PlayersPerTeamTextUI: {fileID: 1090189090}
   PlayersPerTeamSliderUI: {fileID: 1045364500}

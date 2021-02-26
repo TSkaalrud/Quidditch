@@ -209,6 +209,7 @@ namespace Boids
 
             // Add a velocity
             birdScript.Initialize(this);
+
             System.Random r = new System.Random();
             birdScript.Weight = SampleValue(Weight_mean, Weight_std, r);
             birdScript.Max_Velocity = SampleValue(Max_Velocity_mean, Max_Velocity_std, r);
