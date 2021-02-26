@@ -14,7 +14,7 @@ public class MainSceneManager : MonoBehaviour
     /// </summary>
     public FlockSettingScriptable Settings;
 
-    public Flock Gryffindor;
+    public GameObject Gryffindor;
     public Transform Spawn_G;
     public GameObject Slytherin;
     public Transform Spawn_S;

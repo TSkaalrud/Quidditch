@@ -37,7 +37,7 @@ namespace Boids
             // Create new birds
             for (int i = 0; i < numberOfBirds; i++)
 
-                CreateBird();
+                CreateBird(); //put a breakpoint here if you want individual player stats as opposed to team-random stats
         }
 
         #endregion
