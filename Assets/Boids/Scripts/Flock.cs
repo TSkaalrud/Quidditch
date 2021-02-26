@@ -106,21 +106,21 @@ namespace Boids
         public List<Bird> Birds { get { return _Birds; } }
 
 
-        private float Weight_mean;
-        private float Weight_std;
+        public float Weight_mean;
+        public float Weight_std;
 
-        private float Max_Velocity_mean;
-        private float Max_Velocity_std;
+        public float Max_Velocity_mean;
+        public float Max_Velocity_std;
 
-        private float Aggressiveness_mean;
-        private float Aggressiveness_std;
+        public float Aggressiveness_mean;
+        public float Aggressiveness_std;
 
-        private float Max_Exhaustion_mean;
-        private float Max_Exhaustion_std;
+        public float Max_Exhaustion_mean;
+        public float Max_Exhaustion_std;
 
-        private Vector3 Team_Color;
-        private Vector3 Starting_Pos;
-
+        public Color Team_Color;
+        public Color Team_Color2;
+        public Transform Starting_Pos;
 
 
 

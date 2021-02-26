@@ -14,6 +14,17 @@ public class MainSceneManager : MonoBehaviour
     /// </summary>
     public FlockSettingScriptable Settings;
 
+    public Flock Gryffindor;
+    public Transform Spawn_G;
+    public GameObject Slytherin;
+    public Transform Spawn_S;
+
+    private void Awake()
+    {
+        
+    }
+
+
     /// <summary>
     /// Executes once on start.
     /// </summary>
@@ -33,6 +44,11 @@ public class MainSceneManager : MonoBehaviour
 
         // Set and display alignment settings
         DisplayAlignmentSettings(true);
+
+        // _ = Instantiate(Gryffindor) as GameObject;
+        //Teams[0].instance = Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation) as GameObject;
+        Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
+        Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
     }
 
     /// <summary>
