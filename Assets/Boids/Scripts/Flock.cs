@@ -182,6 +182,10 @@ namespace Boids
             GameObject bird = GameObject.Instantiate(BirdTemplate, BirdsParent.transform);
 
             //assign team colors
+            MeshRenderer[] renderers = bird.GetComponentsInChildren<MeshRenderer>();
+            //renderers[0].material.color = Team_Color;
+            renderers[0].materials[0].color = Team_Color;
+            renderers[0].materials[1].color = Team_Color2;
             /*
             MeshRenderer[] renderers = bird.GetComponentsInParent<MeshRenderer>();
             renderers[0].material.color = Team_Color;
