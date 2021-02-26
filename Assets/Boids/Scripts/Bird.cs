@@ -44,6 +44,10 @@ namespace Boids
         /// </summary>
         private Flock Flock;
 
+
+
+
+
         #endregion
 
         #region Methods

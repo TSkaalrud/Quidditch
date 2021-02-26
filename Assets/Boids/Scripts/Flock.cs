@@ -106,14 +106,19 @@ namespace Boids
         public List<Bird> Birds { get { return _Birds; } }
 
 
-        private float Weight;
+        private float Weight_mean;
+        private float Weight_std;
 
-        private float Max_Velocity;
+        private float Max_Velocity_mean;
+        private float Max_Velocity_std;
 
-        private float Aggressiveness;
+        private float Aggressiveness_mean;
+        private float Aggressiveness_std;
 
-        private float Max_Exhaustion;
+        private float Max_Exhaustion_mean;
+        private float Max_Exhaustion_std;
 
+        private Vector3 Team_Color;
         private Vector3 Starting_Pos;
 
 
@@ -191,7 +196,8 @@ namespace Boids
             birdScript.Initialize(this);
         }
 
-        //Uses only the cos form of the box-muller transform
+        //Uses only the cos form of the box-muller transform to produce a random gaussian number
+        //from a given mean and std. dev.
         private float SampleValue(float mean, float std_dev)
         {
             System.Random r = new System.Random();
