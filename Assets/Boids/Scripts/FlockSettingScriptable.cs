@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace Boids
 {
+
     [CreateAssetMenu(fileName = "FlockSettings", menuName = "ScriptableObjects/FlockSettingsScriptableObject", order = 1)]
     public class FlockSettingScriptable : ScriptableObject
     {
-
+        System.Random r = new System.Random();
         [Header("General")]
 
         /// <summary>
@@ -20,7 +21,7 @@ namespace Boids
         /// The number of birds to generate on awake.
         /// </summary>
         [Tooltip("The number of birds to generate on awake.")]
-        public int NumberOfBirdsToGenerateOnAwake = 50;
+        public int NumberOfBirdsToGenerateOnAwake = 15;
 
         /// <summary>
         /// The minimum speed a bird can fly.

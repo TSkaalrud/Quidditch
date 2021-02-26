@@ -18,8 +18,11 @@ namespace Boids
             if (_FlockSettings == null)
                 _FlockSettings = ScriptableObject.CreateInstance<FlockSettingScriptable>();
 
-            if (_FlockSettings.NumberOfBirdsToGenerateOnAwake > 0)
-                Initialize(_FlockSettings.NumberOfBirdsToGenerateOnAwake);
+            //if (_FlockSettings.NumberOfBirdsToGenerateOnAwake > 0)
+            //    Initialize(_FlockSettings.NumberOfBirdsToGenerateOnAwake);
+            GameObject manager = GameObject.Find("SceneManager");
+            MainSceneManager settings = manager.GetComponent<MainSceneManager>();
+            Initialize(settings.Settings.NumberOfBirdsToGenerateOnAwake);
         }
 
         /// <summary>
