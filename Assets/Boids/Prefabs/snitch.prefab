@@ -127,3 +127,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn_Location: {fileID: 0}
+  Flocks: []
+  manager: {fileID: 0}

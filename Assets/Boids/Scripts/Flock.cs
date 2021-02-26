@@ -20,7 +20,7 @@ namespace Boids
 
             //if (_FlockSettings.NumberOfBirdsToGenerateOnAwake > 0)
             //    Initialize(_FlockSettings.NumberOfBirdsToGenerateOnAwake);
-            GameObject manager = GameObject.Find("SceneManager");
+            manager = GameObject.Find("SceneManager");
             MainSceneManager settings = manager.GetComponent<MainSceneManager>();
             Initialize(settings.Settings.NumberOfBirdsToGenerateOnAwake);
         }
@@ -38,6 +38,11 @@ namespace Boids
             for (int i = 0; i < numberOfBirds; i++)
 
                 CreateBird(); //put a breakpoint here if you want individual player stats as opposed to team-random stats
+        }
+
+        public static explicit operator Flock(GameObject v)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion
@@ -126,7 +131,7 @@ namespace Boids
         public Color Team_Color2;
         public Transform Starting_Pos;
 
-
+        public GameObject manager;
 
         #endregion
 

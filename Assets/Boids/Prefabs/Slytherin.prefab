@@ -193,6 +193,7 @@ MonoBehaviour:
   Team_Color: {r: 0.0032039813, g: 0.2264151, b: 0.026164003, a: 0}
   Team_Color2: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0}
   Starting_Pos: {fileID: 0}
+  manager: {fileID: 0}
 --- !u!1 &8185241706516575552
 GameObject:
   m_ObjectHideFlags: 0

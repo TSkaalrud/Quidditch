@@ -20,6 +20,10 @@ public class MainSceneManager : MonoBehaviour
     public Transform Spawn_S;
     public GameObject Snitch;
     public Transform Spawn_Snitch;
+    public Flock Gryf;
+    public Flock Slith;
+    public Snitch Snit;
+    public Flock[] Flocks;
 
     private void Awake()
     {
@@ -49,11 +53,17 @@ public class MainSceneManager : MonoBehaviour
 
         Update();
 
-        // _ = Instantiate(Gryffindor) as GameObject;
-        //Teams[0].instance = Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation) as GameObject;
-        Instantiate(Snitch, Spawn_Snitch.position, Spawn_Snitch.rotation);
-        Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
-        Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
+        //Instantiate both teams and the snitch
+        /*Snit = (Snitch)*/Instantiate(Snitch, Spawn_Snitch.position, Spawn_Snitch.rotation);
+        /*Slith = (Flock)*/Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
+        /*Gryf = (Flock)*/Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
+
+        //Find references for the snitch and both teams
+        Snit = FindObjectOfType<Snitch>();
+        Flocks = Object.FindObjectsOfType<Flock>();
+        Gryf = Flocks[0];
+        Slith = Flocks[1];
+        //Slith = (Flock)GameObject.Find("Slytherin");
     }
 
     /// <summary>
