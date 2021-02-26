@@ -105,6 +105,20 @@ namespace Boids
         /// </summary>
         public List<Bird> Birds { get { return _Birds; } }
 
+
+        private float Weight;
+
+        private float Max_Velocity;
+
+        private float Aggressiveness;
+
+        private float Max_Exhaustion;
+
+        private Vector3 Starting_Pos;
+
+
+
+
         #endregion
 
         #region Methods
@@ -175,6 +189,18 @@ namespace Boids
 
             // Add a velocity
             birdScript.Initialize(this);
+        }
+
+        //Uses only the cos form of the box-muller transform
+        private float SampleValue(float mean, float std_dev)
+        {
+            System.Random r = new System.Random();
+            double U1 = r.NextDouble();
+            double U2 = r.NextDouble();
+
+            float x = Mathf.Sqrt(-2 * Mathf.Log((float)U1)) * Mathf.Cos((float)(2 * Mathf.PI * U2));
+
+            return mean + (std_dev * x);
         }
 
         #endregion
