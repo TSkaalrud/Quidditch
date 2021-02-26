@@ -173,6 +173,12 @@ namespace Boids
             // Create new bird
             GameObject bird = GameObject.Instantiate(BirdTemplate, BirdsParent.transform);
 
+            //assign team colors
+            /*
+            MeshRenderer[] renderers = bird.GetComponentsInParent<MeshRenderer>();
+            renderers[0].material.color = Team_Color;
+            renderers[1].material.color = Team_Color2;
+            */
             // Extract its script
             Bird birdScript = bird.GetComponent<Bird>();
             _Birds.Add(birdScript);
@@ -195,11 +201,27 @@ namespace Boids
 
             // Add a velocity
             birdScript.Initialize(this);
+            System.Random r = new System.Random();
+            birdScript.Weight = SampleValue(Weight_mean, Weight_std, r);
+            birdScript.Max_Velocity = SampleValue(Max_Velocity_mean, Max_Velocity_std, r);
+            birdScript.Aggressiveness = SampleValue(Aggressiveness_mean, Aggressiveness_std, r);
+            birdScript.Max_Exhaustion = SampleValue(Max_Exhaustion_mean, Max_Exhaustion_std, r);
 
 
         }
 
+        //Uses only the cos form of the box-muller transform to produce a random gaussian number
+        //from a given mean and std. dev.
+        private float SampleValue(float mean, float std_dev, System.Random r)
+        {
+            
+            double U1 = r.NextDouble();
+            double U2 = r.NextDouble();
 
+            float x = Mathf.Sqrt(-2 * Mathf.Log((float)U1)) * Mathf.Cos((float)(2 * Mathf.PI * U2));
+
+            return mean + (std_dev * x);
+        }
 
         #endregion
 

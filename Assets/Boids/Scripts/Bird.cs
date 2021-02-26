@@ -31,10 +31,13 @@ namespace Boids
             // Reference the flock this bird belongs to
             Flock = flock;
 
+
+            /*
             Weight = SampleValue(flock.Weight_mean, flock.Weight_std);
             Max_Velocity = SampleValue(flock.Max_Velocity_mean, flock.Max_Velocity_std);
             Aggressiveness = SampleValue(flock.Aggressiveness_mean, flock.Aggressiveness_std);
             Max_Exhaustion = SampleValue(flock.Max_Exhaustion_mean, flock.Max_Exhaustion_std);
+            */
         }
 
         #endregion
