@@ -23,14 +23,14 @@ namespace Boids
         /// <summary>
         /// Initializes the bird.
         /// </summary>
-        public void Initialize(Flock flock)
+        public void Initialize(Flock flock, GameObject man)
         {
             // Give the bird a small push
             Rigidbody.velocity = transform.forward.normalized * flock.FlockSettings.MinSpeed;
 
             // Reference the flock this bird belongs to
             Flock = flock;
-
+            manager = man;
 
             /*
             Weight = SampleValue(flock.Weight_mean, flock.Weight_std);
@@ -59,7 +59,7 @@ namespace Boids
         public float Max_Velocity;
         public float Aggressiveness;
         public float Max_Exhaustion;
-
+        public GameObject manager;
 
 
         #endregion
@@ -90,13 +90,16 @@ namespace Boids
             acceleration += NormalizeSteeringForce(ComputeCollisionAvoidanceForce()) 
                 * Flock.FlockSettings.CollisionAvoidanceForceWeight;
 
+            acceleration += NormalizeSteeringForce(ComputeSnitchForce())
+                * 1;
+
             // Compute the new velocity
             Vector3 velocity = Rigidbody.velocity;
             velocity += acceleration * Time.deltaTime;
 
             // Ensure the velocity remains within the accepted range
             velocity = velocity.normalized * Mathf.Clamp(velocity.magnitude,
-                Flock.FlockSettings.MinSpeed, Flock.FlockSettings.MaxSpeed);
+                Flock.FlockSettings.MinSpeed, Max_Velocity);
 
             // Apply velocity
             Rigidbody.velocity = velocity;
@@ -222,6 +225,21 @@ namespace Boids
 
             // Compute force
             return transform.position - hitInfo.point;
+        }
+
+        private Vector3 ComputeSnitchForce()
+        {
+            //init
+            Vector3 force = Vector3.zero;
+
+            //fetch for reference to snitch
+            MainSceneManager snitch = manager.GetComponent<MainSceneManager>();
+
+            //add force towards snitch
+            force += snitch.Snit.transform.position - this.transform.position;
+
+
+            return force;
         }
 
         //Uses only the cos form of the box-muller transform to produce a random gaussian number

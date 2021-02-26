@@ -212,7 +212,7 @@ namespace Boids
             );
 
             // Add a velocity
-            birdScript.Initialize(this);
+            birdScript.Initialize(this, manager);
 
             System.Random r = new System.Random();
             birdScript.Weight = SampleValue(Weight_mean, Weight_std, r);
