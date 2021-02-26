@@ -33,6 +33,7 @@ namespace Boids
 
             // Create new birds
             for (int i = 0; i < numberOfBirds; i++)
+
                 CreateBird();
         }
 
@@ -194,20 +195,11 @@ namespace Boids
 
             // Add a velocity
             birdScript.Initialize(this);
+
+
         }
 
-        //Uses only the cos form of the box-muller transform to produce a random gaussian number
-        //from a given mean and std. dev.
-        private float SampleValue(float mean, float std_dev)
-        {
-            System.Random r = new System.Random();
-            double U1 = r.NextDouble();
-            double U2 = r.NextDouble();
 
-            float x = Mathf.Sqrt(-2 * Mathf.Log((float)U1)) * Mathf.Cos((float)(2 * Mathf.PI * U2));
-
-            return mean + (std_dev * x);
-        }
 
         #endregion
 

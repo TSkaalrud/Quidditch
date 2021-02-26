@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,11 @@ namespace Boids
         {
             // Extract rigid body
             Rigidbody = GetComponent<Rigidbody>();
+
         }
 
         /// <summary>
-        /// Initiaizes the bird.
+        /// Initializes the bird.
         /// </summary>
         public void Initialize(Flock flock)
         {
@@ -28,6 +30,11 @@ namespace Boids
 
             // Reference the flock this bird belongs to
             Flock = flock;
+
+            Weight = SampleValue(flock.Weight_mean, flock.Weight_std);
+            Max_Velocity = SampleValue(flock.Max_Velocity_mean, flock.Max_Velocity_std);
+            Aggressiveness = SampleValue(flock.Aggressiveness_mean, flock.Aggressiveness_std);
+            Max_Exhaustion = SampleValue(flock.Max_Exhaustion_mean, flock.Max_Exhaustion_std);
         }
 
         #endregion
@@ -45,6 +52,10 @@ namespace Boids
         private Flock Flock;
 
 
+        public float Weight;
+        public float Max_Velocity;
+        public float Aggressiveness;
+        public float Max_Exhaustion;
 
 
 
@@ -188,6 +199,11 @@ namespace Boids
             return force;
         }
 
+        public static explicit operator Bird(GameObject v)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Computes the force that helps avoid collision.
         /// </summary>
@@ -203,6 +219,19 @@ namespace Boids
 
             // Compute force
             return transform.position - hitInfo.point;
+        }
+
+        //Uses only the cos form of the box-muller transform to produce a random gaussian number
+        //from a given mean and std. dev.
+        private float SampleValue(float mean, float std_dev)
+        {
+            System.Random r = new System.Random();
+            double U1 = r.NextDouble();
+            double U2 = r.NextDouble();
+
+            float x = Mathf.Sqrt(-2 * Mathf.Log((float)U1)) * Mathf.Cos((float)(2 * Mathf.PI * U2));
+
+            return mean + (std_dev * x);
         }
 
         #endregion
