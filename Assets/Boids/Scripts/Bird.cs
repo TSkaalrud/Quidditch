@@ -174,7 +174,7 @@ namespace Boids
                     || (bird.transform.position - transform.position).magnitude > Flock.FlockSettings.SeperationRadiusThreshold)
                     continue;
 
-                // Repel aaway
+                // Repel away
                 force += transform.position - bird.transform.position;
             }
 

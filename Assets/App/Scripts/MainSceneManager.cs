@@ -21,7 +21,7 @@ public class MainSceneManager : MonoBehaviour
     public GameObject Snitch;
     public Transform Spawn_Snitch;
     public Flock Gryf;
-    public Flock Slith;
+    public Flock Slyth;
     public Snitch Snit;
     public Flock[] Flocks;
     public GameObject[] Borders; //top, bottom, left, right, front, back
@@ -55,16 +55,17 @@ public class MainSceneManager : MonoBehaviour
         Update();
 
         //Instantiate both teams and the snitch
-        /*Snit = (Snitch)*/Instantiate(Snitch, Spawn_Snitch.position, Spawn_Snitch.rotation);
-        /*Slith = (Flock)*/Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
-        /*Gryf = (Flock)*/Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
+        Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
+        Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
+        Instantiate(Snitch, Spawn_Snitch.position, Spawn_Snitch.rotation);
 
         //Find references for the snitch and both teams
         Snit = FindObjectOfType<Snitch>();
         Flocks = Object.FindObjectsOfType<Flock>();
         Gryf = Flocks[0];
-        Slith = Flocks[1];
-        
+        Slyth = Flocks[1];
+
+        Snit.initialize();
     }
 
     /// <summary>

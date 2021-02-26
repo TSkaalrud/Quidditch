@@ -9554,7 +9554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848251350}
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.010365248, z: 0.10438657}
+  m_LocalPosition: {x: 0.52, y: 0.2, z: 0.10438657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -20953,7 +20953,7 @@ MonoBehaviour:
   Snitch: {fileID: 2316865381634648105, guid: fc56245124be12c4fa10df5b7f0f9a58, type: 3}
   Spawn_Snitch: {fileID: 848251351}
   Gryf: {fileID: 0}
-  Slith: {fileID: 0}
+  Slyth: {fileID: 0}
   Snit: {fileID: 0}
   Flocks: []
   Borders:
