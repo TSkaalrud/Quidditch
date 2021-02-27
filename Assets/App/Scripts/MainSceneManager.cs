@@ -26,10 +26,7 @@ public class MainSceneManager : MonoBehaviour
     public Flock[] Flocks;
     public GameObject[] Borders; //top, bottom, left, right, front, back
 
-    private void Awake()
-    {
-        
-    }
+    public string last_Scored;
 
 
     /// <summary>

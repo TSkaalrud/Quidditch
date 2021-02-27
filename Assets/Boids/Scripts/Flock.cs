@@ -23,6 +23,8 @@ namespace Boids
             manager = GameObject.Find("SceneManager");
             MainSceneManager settings = manager.GetComponent<MainSceneManager>();
             Initialize(settings.Settings.NumberOfBirdsToGenerateOnAwake);
+            
+            score = 0;
         }
 
         /// <summary>
@@ -133,6 +135,8 @@ namespace Boids
 
         public GameObject manager;
 
+        public int score;
+
         #endregion
 
         #region Methods
@@ -219,7 +223,7 @@ namespace Boids
             birdScript.Max_Velocity = SampleValue(Max_Velocity_mean, Max_Velocity_std, r);
             birdScript.Aggressiveness = SampleValue(Aggressiveness_mean, Aggressiveness_std, r);
             birdScript.Max_Exhaustion = SampleValue(Max_Exhaustion_mean, Max_Exhaustion_std, r);
-            bird.tag = this.name;
+            bird.tag = "Player";
 
         }
 

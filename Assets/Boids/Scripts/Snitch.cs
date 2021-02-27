@@ -63,6 +63,9 @@ public class Snitch : MonoBehaviour
 
         acceleration += CenteringForce();
 
+        //random force
+        acceleration += RandomForce();
+
         // Compute the new velocity
         Vector3 velocity = Rigidbody.velocity;
         velocity += acceleration * Time.deltaTime;
@@ -132,11 +135,56 @@ public class Snitch : MonoBehaviour
 
     }
 
+    private Vector3 RandomForce()
+    {
+        Vector3 force = Vector3.zero;
+
+        System.Random r = new System.Random();
+        force.x = (float)r.NextDouble();
+        force.y = (float)r.NextDouble();
+        force.z = (float)r.NextDouble();
+
+        return force.normalized;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         print("Snitch hit " + other);
-        //if (other )
+        if (other.tag == "Player")
+        {
+            MainSceneManager scene = manager.GetComponent<MainSceneManager>();
+
+            GameObject player = other.gameObject;
+            Bird script = (Bird) player.GetComponent<Bird>();
+
+            //score points based on other's team and team's potential streak
+            if (script.Flock.name == "Slytherin(Clone)")
+            {
+                if (scene.last_Scored == "Slytherin")
+                {
+                    script.Flock.score = script.Flock.score + 2;
+                }
+                else
+                {
+                    script.Flock.score = script.Flock.score + 1;
+                    scene.last_Scored = "Slytherin";
+                }
+            }
+            else if(script.Flock.name == "Gryffindor(Clone)")
+            {
+                if (scene.last_Scored == "Gryffindor")
+                {
+                    script.Flock.score = script.Flock.score + 2;
+                }
+                else
+                {
+                    script.Flock.score = script.Flock.score + 1;
+                    scene.last_Scored = "Gryffindor";
+                }
+            }
+            //respawn the snitch
+            this.transform.position = scene.Spawn_Snitch.position;
+        }
     }
 
     public static explicit operator Snitch(GameObject v)

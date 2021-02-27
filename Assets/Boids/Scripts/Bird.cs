@@ -55,7 +55,7 @@ namespace Boids
         /// <summary>
         /// The flock this bird belongs to.
         /// </summary>
-        private Flock Flock;
+        public Flock Flock;
 
 
         public float Weight;
