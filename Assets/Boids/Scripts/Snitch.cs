@@ -57,9 +57,11 @@ public class Snitch : MonoBehaviour
         Vector3 acceleration = Vector3.zero;
 
         // Calculate forces applied to stay inside the borders
-        acceleration += BorderForces();
+        acceleration += 2 * BorderForces();
 
         acceleration += EscapeForces();
+
+        acceleration += CenteringForce();
 
         // Compute the new velocity
         Vector3 velocity = Rigidbody.velocity;
@@ -99,6 +101,7 @@ public class Snitch : MonoBehaviour
         return force;
     }
 
+
     private Vector3 EscapeForces()
     {
         Vector3 force = Vector3.zero;
@@ -112,6 +115,28 @@ public class Snitch : MonoBehaviour
         force = force.normalized;// * ((script.Flocks[0].Max_Velocity_mean + script.Flocks[1].Max_Velocity_mean) / 2);
 
         return force;
+    }
+
+    private Vector3 CenteringForce()
+    {
+        Vector3 force = Vector3.zero;
+
+        MainSceneManager script = manager.GetComponent<MainSceneManager>();
+
+        //force.x += 1 / (script.Spawn_Snitch.position.x - transform.position.x);
+        //force.y += 1 / (script.Spawn_Snitch.position.y - transform.position.y);
+        //force.z += 1 / (script.Spawn_Snitch.position.z - transform.position.z);
+        force += script.Spawn_Snitch.position - transform.position;
+
+        return force;
+
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print("Snitch hit " + other);
+        //if (other )
     }
 
     public static explicit operator Snitch(GameObject v)

@@ -77,7 +77,7 @@ namespace Boids
         /// </summary>
         private void Update()
         {
-            if (!tired)
+            if (!tired && conscious)
             {
                 // Initialize the new velocity
                 Vector3 acceleration = Vector3.zero;
@@ -129,7 +129,7 @@ namespace Boids
                 if (Cur_Exhaustion >= Max_Exhaustion*.75)
                     tired = true;
             }
-            else
+            else if (tired && conscious) 
             {
                 Rigidbody.velocity = Rigidbody.velocity * 4 / 5 * Time.deltaTime;
                 Cur_Exhaustion -= 10 * Time.deltaTime;
@@ -138,7 +138,24 @@ namespace Boids
                     Cur_Exhaustion = 0;
                     tired = false;
                 }
-            }  
+            }
+            else if(!conscious && (Cur_Exhaustion > 0))
+            {
+                if (this.Rigidbody.useGravity == false)
+                {
+                    this.Rigidbody.useGravity = true;
+                }
+                Cur_Exhaustion -= 5 * Time.deltaTime;
+
+            }
+            else if(!conscious && (Cur_Exhaustion <= 0))
+            {
+                conscious = true;
+                Cur_Exhaustion = 0;
+                tired = false;
+                this.Rigidbody.useGravity = false;
+                this.transform.position = Flock.Starting_Pos.position;
+            }
 
         }
 

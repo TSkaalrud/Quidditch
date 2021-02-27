@@ -219,7 +219,7 @@ namespace Boids
             birdScript.Max_Velocity = SampleValue(Max_Velocity_mean, Max_Velocity_std, r);
             birdScript.Aggressiveness = SampleValue(Aggressiveness_mean, Aggressiveness_std, r);
             birdScript.Max_Exhaustion = SampleValue(Max_Exhaustion_mean, Max_Exhaustion_std, r);
-
+            bird.tag = this.name;
 
         }
 
@@ -235,6 +235,7 @@ namespace Boids
 
             return mean + (std_dev * x);
         }
+
 
         #endregion
 
