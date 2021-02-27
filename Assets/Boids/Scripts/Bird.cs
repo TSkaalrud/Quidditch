@@ -104,9 +104,11 @@ namespace Boids
                 acceleration += NormalizeSteeringForce(ComputeCollisionAvoidanceForce())
                     * Flock.FlockSettings.CollisionAvoidanceForceWeight;
 
+                //Compute snitch chase force
                 acceleration += NormalizeSteeringForce(ComputeSnitchForce())
                     * 2;
 
+                //Compute border avoidance forces
                 acceleration += NormalizeSteeringForce(BorderForces())
                     * 3;
 
@@ -275,7 +277,12 @@ namespace Boids
                 return Vector3.zero;
 
             // Compute force
-            return transform.position - hitInfo.point;
+            if (hitInfo.collider.gameObject.name != "snitch(Clone)")
+            {
+                // Compute force
+                return transform.position - hitInfo.point;
+            }
+            return Vector3.zero;
         }
 
         private Vector3 ComputeSnitchForce()
@@ -300,16 +307,57 @@ namespace Boids
 
             //repel away from each of the 6 borders with force increasing with proximity.
             force.y += 1 / (transform.position.y - script.Borders[0].transform.position.y);
-            force.y += 1 / (transform.position.y - script.Borders[1].transform.position.y);
+            force.y += 2 / (transform.position.y - script.Borders[1].transform.position.y);
 
             force.x += 1 / (transform.position.x - script.Borders[2].transform.position.x);
-            force.x += 1 / (transform.position.x - script.Borders[3].transform.position.x);
+            force.x += 2 / (transform.position.x - script.Borders[3].transform.position.x);
 
             force.z += 1 / (transform.position.z - script.Borders[4].transform.position.z);
             force.z += 1 / (transform.position.z - script.Borders[5].transform.position.z);
 
             return force;
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                GameObject collidedWith = collision.gameObject;
+                Bird script = (Bird)collidedWith.GetComponent<Bird>();
+                System.Random r = new System.Random();
+
+                if (this.Flock.name == script.Flock.name)
+                {
+                    
+                    if (r.NextDouble() < 0.025)
+                    {
+                        conscious = false;
+                        print("Friendly fire!");
+
+                    }
+                }
+                else
+                {
+                    double Me = Aggressiveness * (r.NextDouble() * (1.2 + 0.8) + 0.8) * (1-(Cur_Exhaustion/Max_Exhaustion));
+                    double them = script.Aggressiveness * (r.NextDouble() * (1.2 + 0.8) + 0.8) * (1 - (script.Cur_Exhaustion / script.Max_Exhaustion));
+                    print("Players are duking it out!");
+
+                    if (Me > them)
+                    {
+                        script.conscious = false;
+                    } else
+                    {
+                        conscious = false;
+                    }
+                }
+            } else
+            {
+                conscious = false;
+                print("Player struck terrain, like a dunce");
+            }
+        }
+
+
 
         #endregion
 

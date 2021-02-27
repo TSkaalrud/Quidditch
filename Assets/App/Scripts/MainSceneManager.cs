@@ -130,12 +130,12 @@ public class MainSceneManager : MonoBehaviour
     /// <summary>
     /// Text UI element displaying the maximum speed.
     /// </summary>
-    public Text MaximumSpeedTextUI;
+    //public Text MaximumSpeedTextUI;
 
     /// <summary>
     /// Slider UI element displaying the minimum speed.
     /// </summary>
-    public Slider MaximumSpeedSliderUI;
+    //public Slider MaximumSpeedSliderUI;
 
     /// <summary>
     /// Text UI element displaying the maximum steering force.
@@ -154,14 +154,14 @@ public class MainSceneManager : MonoBehaviour
     {
         PlayersPerTeamTextUI.text = string.Format("Players per team ({0:0.00})", Settings.NumberOfBirdsToGenerateOnAwake);
         MinimumSpeedTextUI.text = string.Format("Minimum speed ({0:0.00})", Settings.MinSpeed);
-        MaximumSpeedTextUI.text = string.Format("Maximum speed ({0:0.00})", Settings.MaxSpeed);
+        //MaximumSpeedTextUI.text = string.Format("Maximum speed ({0:0.00})", Settings.MaxSpeed);
         MaximumSteeringForceTextUI.text = string.Format("Max steering force ({0:0.00})", Settings.MaxSteerForce);
 
         if (initialize)
         {
             PlayersPerTeamSliderUI.value = Settings.NumberOfBirdsToGenerateOnAwake;
             MinimumSpeedSliderUI.value = Settings.MinSpeed;
-            MaximumSpeedSliderUI.value = Settings.MaxSpeed;
+            //MaximumSpeedSliderUI.value = Settings.MaxSpeed;
             MaximumSteeringForceSliderUI.value = Settings.MaxSteerForce;
         }
     }
@@ -173,7 +173,7 @@ public class MainSceneManager : MonoBehaviour
     {
         Settings.NumberOfBirdsToGenerateOnAwake = (int)PlayersPerTeamSliderUI.value;
         Settings.MinSpeed = MinimumSpeedSliderUI.value;
-        Settings.MaxSpeed = MaximumSpeedSliderUI.value;
+        //Settings.MaxSpeed = MaximumSpeedSliderUI.value;
         Settings.MaxSteerForce = MaximumSteeringForceSliderUI.value;
     }
 

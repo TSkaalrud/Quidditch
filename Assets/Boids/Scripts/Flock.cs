@@ -23,7 +23,7 @@ namespace Boids
             manager = GameObject.Find("SceneManager");
             MainSceneManager settings = manager.GetComponent<MainSceneManager>();
             Initialize(settings.Settings.NumberOfBirdsToGenerateOnAwake);
-            
+            Starting_Pos = this.transform;
             score = 0;
         }
 

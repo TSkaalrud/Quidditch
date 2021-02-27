@@ -32,8 +32,8 @@ namespace Boids
         /// <summary>
         /// The maximum speed a bird can fly.
         /// </summary>
-        [Tooltip("The maximum speed a bird can fly.")]
-        public float MaxSpeed = 2.5f;
+        //[Tooltip("The maximum speed a bird can fly.")]
+        //public float MaxSpeed = 2.5f;
 
         /// <summary>
         /// The maximum steering force that can be applied at any frame rate.
@@ -104,13 +104,13 @@ namespace Boids
         /// The weight applied to the collision avoidance steering force.
         /// </summary>
         [Tooltip("The weight applied to the collision avoidance steering force.")]
-        public float CollisionAvoidanceForceWeight = 5;
+        public float CollisionAvoidanceForceWeight = 10;
 
         /// <summary>
         /// The distance used to find nearby obstacles that we need to avoid.
         /// </summary>
         [Tooltip("The distance used to find nearby obstacles that we need to avoid.")]
-        public float CollisionAvoidanceRadiusThreshold = 1;
+        public float CollisionAvoidanceRadiusThreshold = 2f;
 
     }
 }

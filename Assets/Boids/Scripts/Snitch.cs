@@ -61,7 +61,9 @@ public class Snitch : MonoBehaviour
 
         acceleration += EscapeForces();
 
-        acceleration += CenteringForce();
+        acceleration += CenteringForce() / 2;
+
+        acceleration += ComputeCollisionAvoidanceForce() * 10f;
 
         //random force
         acceleration += RandomForce();
@@ -182,9 +184,26 @@ public class Snitch : MonoBehaviour
                     scene.last_Scored = "Gryffindor";
                 }
             }
-            //respawn the snitch
+            //"respawn" the snitch
             this.transform.position = scene.Spawn_Snitch.position;
         }
+    }
+
+    /// <summary>
+    /// Computes the force that helps avoid collision.
+    /// </summary>
+    private Vector3 ComputeCollisionAvoidanceForce()
+    {
+        // Check if heading to collision
+        if (!Physics.SphereCast(transform.position,
+            2,
+            transform.forward,
+            out RaycastHit hitInfo,
+            2))
+            return Vector3.zero;
+
+        // Compute force
+        return transform.position - hitInfo.point;
     }
 
     public static explicit operator Snitch(GameObject v)
