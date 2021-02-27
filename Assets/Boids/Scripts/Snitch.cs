@@ -165,11 +165,14 @@ public class Snitch : MonoBehaviour
                 if (scene.last_Scored == "Slytherin")
                 {
                     script.Flock.score = script.Flock.score + 2;
+                    script.Snitch_Catches++;
                 }
                 else
                 {
                     script.Flock.score = script.Flock.score + 1;
                     scene.last_Scored = "Slytherin";
+                    script.Snitch_Catches++;
+
                 }
             }
             else if(script.Flock.name == "Gryffindor(Clone)")
@@ -177,11 +180,15 @@ public class Snitch : MonoBehaviour
                 if (scene.last_Scored == "Gryffindor")
                 {
                     script.Flock.score = script.Flock.score + 2;
+                    script.Snitch_Catches++;
+
                 }
                 else
                 {
                     script.Flock.score = script.Flock.score + 1;
                     scene.last_Scored = "Gryffindor";
+                    script.Snitch_Catches++;
+
                 }
             }
             //"respawn" the snitch
