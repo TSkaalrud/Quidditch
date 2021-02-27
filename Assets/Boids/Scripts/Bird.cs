@@ -31,6 +31,9 @@ namespace Boids
             // Reference the flock this bird belongs to
             Flock = flock;
             manager = man;
+            Cur_Exhaustion = 0;
+            conscious = true;
+            script = manager.GetComponent<MainSceneManager>();
 
             /*
             Weight = SampleValue(flock.Weight_mean, flock.Weight_std);
@@ -59,8 +62,11 @@ namespace Boids
         public float Max_Velocity;
         public float Aggressiveness;
         public float Max_Exhaustion;
+        public float Cur_Exhaustion;
         public GameObject manager;
-
+        public MainSceneManager script;
+        private bool tired;
+        private bool conscious;
 
         #endregion
 
@@ -71,41 +77,69 @@ namespace Boids
         /// </summary>
         private void Update()
         {
-            // Initialize the new velocity
-            Vector3 acceleration = Vector3.zero;
+            if (!tired)
+            {
+                // Initialize the new velocity
+                Vector3 acceleration = Vector3.zero;
 
-            // Compute cohesion
-            acceleration += NormalizeSteeringForce(ComputeCohisionForce())
-                * Flock.FlockSettings.CohesionForceWeight;
+                //constant to counteract the drastic effect of weight
+                float acceleration_mult = 63f / Weight; //the minimum weight
 
-            // Compute seperation
-            acceleration += NormalizeSteeringForce(ComputeSeperationForce())
-                * Flock.FlockSettings.SeperationForceWeight;
+                //clamped between 0.5 and 1, players speed depends on their proportion of exhaustion
+                float exhaustion_factor = Mathf.Clamp((Max_Exhaustion - Cur_Exhaustion) / Max_Exhaustion, 0.5f, 1f);
 
-            // Compute alignment
-            acceleration += NormalizeSteeringForce(ComputeAlignmentForce())
-                * Flock.FlockSettings.AlignmentForceWeight;
+                // Compute cohesion
+                acceleration += NormalizeSteeringForce(ComputeCohisionForce())
+                    * Flock.FlockSettings.CohesionForceWeight;
 
-            // Compute collision avoidance
-            acceleration += NormalizeSteeringForce(ComputeCollisionAvoidanceForce()) 
-                * Flock.FlockSettings.CollisionAvoidanceForceWeight;
+                // Compute seperation
+                acceleration += NormalizeSteeringForce(ComputeSeperationForce())
+                    * Flock.FlockSettings.SeperationForceWeight;
 
-            acceleration += NormalizeSteeringForce(ComputeSnitchForce())
-                * 1;
+                // Compute alignment
+                acceleration += NormalizeSteeringForce(ComputeAlignmentForce())
+                    * Flock.FlockSettings.AlignmentForceWeight;
 
-            // Compute the new velocity
-            Vector3 velocity = Rigidbody.velocity;
-            velocity += acceleration * Time.deltaTime;
+                // Compute collision avoidance
+                acceleration += NormalizeSteeringForce(ComputeCollisionAvoidanceForce())
+                    * Flock.FlockSettings.CollisionAvoidanceForceWeight;
 
-            // Ensure the velocity remains within the accepted range
-            velocity = velocity.normalized * Mathf.Clamp(velocity.magnitude,
-                Flock.FlockSettings.MinSpeed, Max_Velocity);
+                acceleration += NormalizeSteeringForce(ComputeSnitchForce())
+                    * 2;
 
-            // Apply velocity
-            Rigidbody.velocity = velocity;
+                acceleration += NormalizeSteeringForce(BorderForces())
+                    * 3;
 
-            // Update rotation
-            transform.forward = Rigidbody.velocity.normalized;
+                // Compute the new velocity
+                Vector3 velocity = Rigidbody.velocity;
+                velocity += acceleration * acceleration_mult * exhaustion_factor * Time.deltaTime;
+
+                // Ensure the velocity remains within the accepted range
+                velocity = velocity.normalized * Mathf.Clamp(velocity.magnitude,
+                    Flock.FlockSettings.MinSpeed, Max_Velocity);
+
+                // Apply velocity
+                Rigidbody.velocity = velocity;
+
+                // Update rotation
+                transform.forward = Rigidbody.velocity.normalized;
+
+                //gain exhaustion based on time
+                Cur_Exhaustion += 2.5f * Time.deltaTime;
+                if (Cur_Exhaustion >= Max_Exhaustion*.75)
+                    tired = true;
+            }
+            else
+            {
+                Rigidbody.velocity = Rigidbody.velocity * 4 / 5 * Time.deltaTime;
+                Cur_Exhaustion -= 10 * Time.deltaTime;
+                if (Cur_Exhaustion <= 0)
+                {
+                    Cur_Exhaustion = 0;
+                    tired = false;
+                }
+            }  
+
         }
 
         /// <summary>
@@ -242,17 +276,22 @@ namespace Boids
             return force;
         }
 
-        //Uses only the cos form of the box-muller transform to produce a random gaussian number
-        //from a given mean and std. dev.
-        private float SampleValue(float mean, float std_dev)
+        Vector3 BorderForces()
         {
-            System.Random r = new System.Random();
-            double U1 = r.NextDouble();
-            double U2 = r.NextDouble();
+            // Initialize seperation force
+            Vector3 force = Vector3.zero;
 
-            float x = Mathf.Sqrt(-2 * Mathf.Log((float)U1)) * Mathf.Cos((float)(2 * Mathf.PI * U2));
+            //repel away from each of the 6 borders with force increasing with proximity.
+            force.y += 1 / (transform.position.y - script.Borders[0].transform.position.y);
+            force.y += 1 / (transform.position.y - script.Borders[1].transform.position.y);
 
-            return mean + (std_dev * x);
+            force.x += 1 / (transform.position.x - script.Borders[2].transform.position.x);
+            force.x += 1 / (transform.position.x - script.Borders[3].transform.position.x);
+
+            force.z += 1 / (transform.position.z - script.Borders[4].transform.position.z);
+            force.z += 1 / (transform.position.z - script.Borders[5].transform.position.z);
+
+            return force;
         }
 
         #endregion
