@@ -25,7 +25,7 @@ public class MainSceneManager : MonoBehaviour
     public Snitch Snit;
     public Flock[] Flocks;
     public GameObject[] Borders; //top, bottom, left, right, front, back
-
+    public Text Scoreboard;
     public string last_Scored;
 
 
@@ -34,6 +34,20 @@ public class MainSceneManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+
+        //Instantiate both teams and the snitch
+        Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
+        Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
+        Instantiate(Snitch, Spawn_Snitch.position, Spawn_Snitch.rotation);
+
+        //Find references for the snitch and both teams
+        Snit = FindObjectOfType<Snitch>();
+        Flocks = Object.FindObjectsOfType<Flock>();
+        Gryf = Flocks[0];
+        Slyth = Flocks[1];
+
+        Snit.initialize();
+
         // Display the app version
         DisplayVersion();
 
@@ -49,20 +63,9 @@ public class MainSceneManager : MonoBehaviour
         // Set and display alignment settings
         DisplayAlignmentSettings(true);
 
-        Update();
+        //Update();
 
-        //Instantiate both teams and the snitch
-        Instantiate(Slytherin, Spawn_S.position, Spawn_S.rotation);
-        Instantiate(Gryffindor, Spawn_G.position, Spawn_G.rotation);
-        Instantiate(Snitch, Spawn_Snitch.position, Spawn_Snitch.rotation);
 
-        //Find references for the snitch and both teams
-        Snit = FindObjectOfType<Snitch>();
-        Flocks = Object.FindObjectsOfType<Flock>();
-        Gryf = Flocks[0];
-        Slyth = Flocks[1];
-
-        Snit.initialize();
     }
 
     /// <summary>
@@ -70,6 +73,19 @@ public class MainSceneManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
+
+        if (Slyth.score < 100 && Gryf.score < 100)
+        {
+            Scoreboard.text = "Slytherin: " + Slyth.score + " Gryffidor: " + Gryf.score;
+        }
+        else if(Slyth.score >= 100)
+        {
+            Scoreboard.text = "SLYTHERIN WINS!!!";
+        }else if(Gryf.score >= 100)
+        {
+            Scoreboard.text = "GRYFFINDOR!!!";
+        }
+
         // General settings
         UpdateGeneralSettings();
         DisplayGeneralSettings();
@@ -85,6 +101,8 @@ public class MainSceneManager : MonoBehaviour
         // Alignment settings
         UpdateAlignmentSettings();
         DisplayAlignmentSettings();
+
+
     }
 
     #endregion
@@ -103,7 +121,7 @@ public class MainSceneManager : MonoBehaviour
     /// </summary>
     private void DisplayVersion()
     {
-        Version.text = string.Format("Version: {0}", Application.version);
+        Version.text = string.Format("Versions: {0}", Application.version);
     }
 
     #endregion

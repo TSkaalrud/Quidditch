@@ -129,6 +129,8 @@ namespace Boids
         public float Max_Exhaustion_mean;
         public float Max_Exhaustion_std;
 
+        public float bloodthirsty_proportion;
+
         public Color Team_Color;
         public Color Team_Color2;
         public Transform Starting_Pos;
@@ -224,6 +226,10 @@ namespace Boids
             birdScript.Aggressiveness = SampleValue(Aggressiveness_mean, Aggressiveness_std, r);
             birdScript.Max_Exhaustion = SampleValue(Max_Exhaustion_mean, Max_Exhaustion_std, r);
             bird.tag = "Player";
+            if (r.NextDouble() < bloodthirsty_proportion)
+            {
+                birdScript.Bloodthirsty = true;
+            }
 
         }
 

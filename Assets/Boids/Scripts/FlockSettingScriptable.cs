@@ -110,7 +110,7 @@ namespace Boids
         /// The distance used to find nearby obstacles that we need to avoid.
         /// </summary>
         [Tooltip("The distance used to find nearby obstacles that we need to avoid.")]
-        public float CollisionAvoidanceRadiusThreshold = 2f;
+        public float CollisionAvoidanceRadiusThreshold = 3f;
 
     }
 }

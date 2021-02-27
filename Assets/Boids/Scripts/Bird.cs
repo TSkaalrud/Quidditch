@@ -67,6 +67,8 @@ namespace Boids
         public MainSceneManager script;
         private bool tired;
         private bool conscious;
+        public bool Bloodthirsty;
+        public int Snitch_Catches;
 
         #endregion
 
@@ -106,11 +108,14 @@ namespace Boids
 
                 //Compute snitch chase force
                 acceleration += NormalizeSteeringForce(ComputeSnitchForce())
-                    * 2;
+                    * (1+Snitch_Catches);
 
                 //Compute border avoidance forces
                 acceleration += NormalizeSteeringForce(BorderForces())
                     * 3;
+
+                if (Bloodthirsty)
+                    acceleration += BloodForce();
 
                 // Compute the new velocity
                 Vector3 velocity = Rigidbody.velocity;
@@ -357,7 +362,27 @@ namespace Boids
             }
         }
 
+        private Vector3 BloodForce()
+        {
+            Vector3 force = Vector3.zero;
 
+            //fetch for team flocks
+            MainSceneManager script = manager.GetComponent<MainSceneManager>();
+
+            if(Flock.name == "Slytherin(Clone)")
+            {
+                force += script.Flocks[0].CenterPosition - transform.position;
+            }
+            else if (Flock.name == "Gryffindor(Clone)")
+            {
+                force += script.Flocks[1].CenterPosition - transform.position;
+
+            }
+
+            force = force.normalized;// * ((script.Flocks[0].Max_Velocity_mean + script.Flocks[1].Max_Velocity_mean) / 2);
+
+            return force;
+        }
 
         #endregion
 
