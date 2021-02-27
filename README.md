@@ -2,16 +2,18 @@
 This project builds upon Omar Addams' boids project and repository in order to create a simplified and Emergent-AI-based game of Quidditch,
 the popular wizarding passtime in the Harry Potter Universe.
 The game is simple, catch the golden snitch! Catch it for a point towards 100 and catch it on a streak for 2 points!
+
 <img src="docs/Capture1.PNG" height="200" />
+
 There are two classic rival teams: the Green/Silver Slytherins, and the Red/Gold Gryffindors.
 
-Each team is differentiated by a number of randomly distributed traits:
-Weight - affecting accelerations.
-Max Velocity - top speeds are clamped down to limit extreme behaviour.
-Aggressiveness - determines the chances of incapacitating another player on collision, surviving the hit yourself.
-Max Exhaustion - Players can only fly for so long before they need to take a break or risk falling out of the sky.
-Bloodthirst - Players selected as bloodthirsty will be extra motivated to go for collisions against other players.
-Skill - Players who are able to catch the snitch become better and more focussed on further scoring.
+- Each team is differentiated by a number of randomly distributed traits:
+- Weight - affecting accelerations.
+- Max Velocity - top speeds are clamped down to limit extreme behaviour.
+- Aggressiveness - determines the chances of incapacitating another player on collision, surviving the hit yourself.
+- Max Exhaustion - Players can only fly for so long before they need to take a break or risk falling out of the sky.
+- Bloodthirst - Players selected as bloodthirsty will be extra motivated to go for collisions against other players.
+- Skill - Players who are able to catch the snitch become better and more focussed on further scoring.
 
 Players will roughly flock as boids, but are also drawn by other forces, such as those to avoid obstacles and chase the snitch.
 Should players collide with terrain, fly too hard, or lose a collision (including a small chance of friendly fire), they are knocked out 
