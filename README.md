@@ -1,3 +1,11 @@
+# Quidditch
+This project builds upon Omar Addams' boids project and repository in order to create a simplified and Emergent-AI-based game of Quidditch,
+the popular wizarding passtime in the Harry Potter Universe.
+The game is simple, catch the golden snitch
+<img src="docs/Capture1.PNG" height="200" />
+
+# Below is the documentation that came with Omar Addams' repository
+
 # Boids-Simulation
 This project simulates the flocking behavior of birds. It uses Unity3d engine to implement the Boids algorithm.
 
