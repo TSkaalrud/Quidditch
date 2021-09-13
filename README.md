@@ -24,12 +24,6 @@ If it is caught, it returns to it's spawn point.
 <img src="docs/Capture2.PNG" height="200" />
 
 
-***Note: for unknown Quantum-seeming reasons, if you would like the individuals of a team to have proper random attributes, 
-rather than just a single sample being used across all of the members of a team, insert a break-point in the 
-Flock.cs script (Found under Assets/Boids/Scripts) at line 42 (where the comment notes to), and attach VS (only tested with VS)
-to Unity before running. You will have to "continue" through for the creation of each player (current default = 40 players total).***
-
-
 # Below is the documentation that came with Omar Addams' repository
 
 # Boids-Simulation
